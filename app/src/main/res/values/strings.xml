@@ -3,4 +3,5 @@
     <string name="test_address">г.Калачинск, ул. Калачинская широта: 55.0529870 (ПКиО им. Гагарина)</string>
     <string name="Volume">Объем</string>
     <string name="weight">Вес</string>
+    <string name="save">Сохранить</string>
 </resources>

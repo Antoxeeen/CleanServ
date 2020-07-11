@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import ru.antoxeeen.cleanserv.Repository.Data;
 import ru.antoxeeen.cleanserv.Repository.DataRepository;
 
-class DataViewModel extends AndroidViewModel {
+public class DataViewModel extends AndroidViewModel {
 
     private DataRepository dataRepository;
     private LiveData<List<Data>> data;
