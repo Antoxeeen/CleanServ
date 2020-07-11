@@ -1,6 +1,7 @@
-package ru.antoxeeen.cleanserv;
+package ru.antoxeeen.cleanserv.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import ru.antoxeeen.cleanserv.R;
 
 import android.os.Bundle;
 
