@@ -15,9 +15,6 @@ public class Data {
     @ColumnInfo(name = "dbId")
     private int dbId;
 
-    @ColumnInfo(name = "date")
-    private long date;
-
     @ColumnInfo(name = "address")
     private String address;
 
@@ -30,21 +27,15 @@ public class Data {
     @ColumnInfo(name = "house_number")
     private String house_number;*/
 
-    @Ignore
-    @ColumnInfo(name = "description")
-    private String description;
-
     @ColumnInfo(name = "garbageVolume")
     private double garbageVolume;
 
     @ColumnInfo(name = "garbageWeight")
     private double garbageWeight;
 
-    public Data(int dbId, long date, String address, String description, double garbageVolume, double garbageWeight) {
+    public Data(int dbId, String address, double garbageVolume, double garbageWeight) {
         this.dbId = dbId;
-        this.date = date;
         this.address = address;
-        this.description = description;
         this.garbageVolume = garbageVolume;
         this.garbageWeight = garbageWeight;
     }
@@ -57,16 +48,8 @@ public class Data {
         this.dbId = dbId;
     }
 
-    public void setDate(long date) {
-        this.date = date;
-    }
-
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setGarbageVolume(double garbageVolume) {
@@ -85,16 +68,8 @@ public class Data {
         return dbId;
     }
 
-    public long getDate() {
-        return date;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public double getGarbageVolume() {
