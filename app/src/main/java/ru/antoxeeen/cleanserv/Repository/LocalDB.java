@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = Data.class, version = 1)
+@Database(entities = Data.class, version = 2)
 public abstract class LocalDB extends RoomDatabase {
 
     private static LocalDB instance;

@@ -21,7 +21,7 @@ interface DataDao {
     @Delete
     void delete(Data data);
 
-    @Query("SELECT * FROM Data")
+    @Query("SELECT * FROM Data ORDER BY route ASC")
     LiveData<List<Data>> getAllData();
 
     @Query("DELETE FROM Data")

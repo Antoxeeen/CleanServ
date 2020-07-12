@@ -19,6 +19,8 @@ public class EditDataActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "ru.antoxeeen.cleanserv.View.EXTRA_ID";
     public static final String EXTRA_DBID = "ru.antoxeeen.cleanserv.View.EXTRA_DBID";
     public static final String EXTRA_ADDRESS = "ru.antoxeeen.cleanserv.View.EXTRA_ADDRESS";
+    public static final String EXTRA_DATE = "ru.antoxeeen.cleanserv.View.EXTRA_DATE";
+    public static final String EXTRA_ROUTE = "ru.antoxeeen.cleanserv.View.EXTRA_ROUTE";
     public static final String EXTRA_VOLUME = "ru.antoxeeen.cleanserv.View.EXTRA_VOLUME";
     public static final String EXTRA_WEIGHT = "ru.antoxeeen.cleanserv.View.EXTRA_WEIGHT";
 
@@ -29,6 +31,8 @@ public class EditDataActivity extends AppCompatActivity {
     private int currentId;
     private int currentDbId;
     private String currentAddress;
+    private String currentDate;
+    private int currentRoute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class EditDataActivity extends AppCompatActivity {
         currentId = intent.getIntExtra(EXTRA_ID, -1);
         currentDbId = intent.getIntExtra(EXTRA_DBID, -1);
         currentAddress = intent.getStringExtra(EXTRA_ADDRESS);
+        currentDate = intent.getStringExtra(EXTRA_DATE);
+        currentRoute = intent.getIntExtra(EXTRA_ROUTE, -1);
         textView_address.setText(currentAddress);
         editText_volume.setText(String.valueOf(intent.getDoubleExtra(EXTRA_VOLUME, -1)));
         editText_weight.setText(String.valueOf(intent.getDoubleExtra(EXTRA_WEIGHT, -1)));
@@ -63,6 +69,8 @@ public class EditDataActivity extends AppCompatActivity {
         data.putExtra(EXTRA_ID, currentId);
         data.putExtra(EXTRA_DBID, currentDbId);
         data.putExtra(EXTRA_ADDRESS, currentAddress);
+        data.putExtra(EXTRA_DATE, currentDate);
+        data.putExtra(EXTRA_ROUTE, currentRoute);
         data.putExtra(EXTRA_VOLUME, Double.valueOf(editText_volume.getText().toString()));
         data.putExtra(EXTRA_WEIGHT, Double.valueOf(editText_weight.getText().toString()));
         setResult(RESULT_OK);

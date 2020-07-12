@@ -17,13 +17,13 @@ public class Data {
     @ColumnInfo(name = "address")
     private String address;
 
-    /*@ColumnInfo(name = "locality")
-    private String locality;
+    @ColumnInfo(name = "date")
+    private String date;
 
-    @ColumnInfo(name = "street")
-    private String street;
+    @ColumnInfo(name = "route")
+    private int route;
 
-    @ColumnInfo(name = "house_number")
+    /*@ColumnInfo(name = "house_number")
     private String house_number;*/
 
     @ColumnInfo(name = "garbageVolume")
@@ -32,9 +32,11 @@ public class Data {
     @ColumnInfo(name = "garbageWeight")
     private double garbageWeight;
 
-    public Data(int dbId, String address, double garbageVolume, double garbageWeight) {
+    public Data(int dbId, String address, String date, int route, double garbageVolume, double garbageWeight) {
         this.dbId = dbId;
         this.address = address;
+        this.date = date;
+        this.route = route;
         this.garbageVolume = garbageVolume;
         this.garbageWeight = garbageWeight;
     }
@@ -49,6 +51,14 @@ public class Data {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setRoute(int route) {
+        this.route = route;
     }
 
     public void setGarbageVolume(double garbageVolume) {
@@ -69,6 +79,14 @@ public class Data {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getRoute() {
+        return route;
     }
 
     public double getGarbageVolume() {

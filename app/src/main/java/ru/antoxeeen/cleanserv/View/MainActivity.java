@@ -21,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private DataViewModel viewModel;
     private DataAdapter adapter;
     private RecyclerView recyclerView;
+    private int currentId;
+    private int currentDbId;
+    private String currentAddress;
+    private String currentDate;
+    private int currentRoute;
+    private double currentVolume;
+    private double currentWeight;
     public static final int EDIT_DATA_REQUEST = 1;
 
     @Override
@@ -40,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Data data) {
                 Intent intent = new Intent(MainActivity.this, EditDataActivity.class);
-                int id = data.getId();
-                int dbId = data.getDbId();
-                intent.putExtra(EditDataActivity.EXTRA_ID, id);
-                intent.putExtra(EditDataActivity.EXTRA_DBID, dbId);
+                currentId = data.getId();
+                currentDbId = data.getDbId();
+                intent.putExtra(EditDataActivity.EXTRA_ID, currentId);
+                intent.putExtra(EditDataActivity.EXTRA_DBID, currentDbId);
                 intent.putExtra(EditDataActivity.EXTRA_ADDRESS, data.getAddress());
+                intent.putExtra(EditDataActivity.EXTRA_DATE, data.getDate());
+                intent.putExtra(EditDataActivity.EXTRA_ROUTE, data.getRoute());
                 intent.putExtra(EditDataActivity.EXTRA_VOLUME, data.getGarbageVolume());
                 intent.putExtra(EditDataActivity.EXTRA_WEIGHT, data.getGarbageWeight());
                 startActivityForResult(intent, EDIT_DATA_REQUEST);
@@ -68,20 +77,24 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == EDIT_DATA_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(EditDataActivity.EXTRA_ID, -1);
-            int dbId = data.getIntExtra(EditDataActivity.EXTRA_DBID, -1);
-            if (id == -1 && dbId == -1) {
+            currentId = data.getIntExtra(EditDataActivity.EXTRA_ID, -1);
+            currentDbId = data.getIntExtra(EditDataActivity.EXTRA_DBID, -1);
+            if (currentId == -1 && currentDbId == -1) {
                 Toast.makeText(this, "Не может быть обновлено", Toast.LENGTH_SHORT).show();
                 return;
             }
-            String currentAddress = data.getStringExtra(EditDataActivity.EXTRA_ADDRESS);
-            double currentVolume = data.getDoubleExtra(EditDataActivity.EXTRA_VOLUME, 0.0);
-            double currentWeight = data.getDoubleExtra(EditDataActivity.EXTRA_WEIGHT, 0.0);
-            Data currentData = new Data(dbId, currentAddress, currentVolume, currentWeight);
-            currentData.setId(id);
+            currentAddress = data.getStringExtra(EditDataActivity.EXTRA_ADDRESS);
+            currentDate = data.getStringExtra(EditDataActivity.EXTRA_DATE);
+            currentRoute = data.getIntExtra(EditDataActivity.EXTRA_ROUTE, -1);
+            currentVolume = data.getDoubleExtra(EditDataActivity.EXTRA_VOLUME, 0.0);
+            currentWeight = data.getDoubleExtra(EditDataActivity.EXTRA_WEIGHT, 0.0);
+            Data currentData = new Data(currentDbId, currentAddress, currentDate, currentRoute,
+                    currentVolume, currentWeight);
+            currentData.setId(currentId);
             viewModel.updateData(currentData);
         } else {
-            Toast.makeText(this, "Нет изменений для сохранения", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Нет изменений для сохранения", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }
