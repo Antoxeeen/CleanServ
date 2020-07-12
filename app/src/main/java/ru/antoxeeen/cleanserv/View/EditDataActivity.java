@@ -27,7 +27,6 @@ public class EditDataActivity extends AppCompatActivity {
     private TextView textView_address;
     private EditText editText_volume;
     private EditText editText_weight;
-
     private int currentId;
     private int currentDbId;
     private String currentAddress;
