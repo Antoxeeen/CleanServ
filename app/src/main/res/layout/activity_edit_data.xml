@@ -40,6 +40,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
+            android:singleLine="true"
+            android:inputType="numberDecimal"
             android:background="@drawable/border_edit_text_style"
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -67,6 +69,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
+            android:singleLine="true"
+            android:inputType="numberDecimal"
             android:background="@drawable/border_edit_text_style"
             android:textAlignment="center"
             android:textSize="20sp" />
