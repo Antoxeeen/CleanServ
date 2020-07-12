@@ -17,7 +17,6 @@ import java.util.Objects;
 public class EditDataActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "ru.antoxeeen.cleanserv.View.EXTRA_ID";
-    public static final String EXTRA_DBID = "ru.antoxeeen.cleanserv.View.EXTRA_DBID";
     public static final String EXTRA_ADDRESS = "ru.antoxeeen.cleanserv.View.EXTRA_ADDRESS";
     public static final String EXTRA_DATE = "ru.antoxeeen.cleanserv.View.EXTRA_DATE";
     public static final String EXTRA_ROUTE = "ru.antoxeeen.cleanserv.View.EXTRA_ROUTE";
@@ -28,7 +27,6 @@ public class EditDataActivity extends AppCompatActivity {
     private EditText editText_volume;
     private EditText editText_weight;
     private int currentId;
-    private int currentDbId;
     private String currentAddress;
     private String currentDate;
     private int currentRoute;
@@ -53,7 +51,6 @@ public class EditDataActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currentId = intent.getIntExtra(EXTRA_ID, -1);
-        currentDbId = intent.getIntExtra(EXTRA_DBID, -1);
         currentAddress = intent.getStringExtra(EXTRA_ADDRESS);
         currentDate = intent.getStringExtra(EXTRA_DATE);
         currentRoute = intent.getIntExtra(EXTRA_ROUTE, -1);
@@ -66,7 +63,6 @@ public class EditDataActivity extends AppCompatActivity {
     private void save() {
         Intent data = new Intent();
         data.putExtra(EXTRA_ID, currentId);
-        data.putExtra(EXTRA_DBID, currentDbId);
         data.putExtra(EXTRA_ADDRESS, currentAddress);
         data.putExtra(EXTRA_DATE, currentDate);
         data.putExtra(EXTRA_ROUTE, currentRoute);

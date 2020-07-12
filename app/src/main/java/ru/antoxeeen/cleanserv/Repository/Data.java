@@ -1,5 +1,7 @@
 package ru.antoxeeen.cleanserv.Repository;
 
+import com.google.gson.annotations.SerializedName;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,33 +9,40 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Data")
 public class Data {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
+    @SerializedName("id")
     private int id;
 
-    @ColumnInfo(name = "dbId")
-    private int dbId;
+    /*@ColumnInfo(name = "dbId")
+    @SerializedName("id")
+    private int dbId;*/
 
     @ColumnInfo(name = "address")
+    @SerializedName("address")
     private String address;
 
     @ColumnInfo(name = "date")
+    @SerializedName("date")
     private String date;
 
     @ColumnInfo(name = "route")
+    @SerializedName("route")
     private int route;
 
     /*@ColumnInfo(name = "house_number")
     private String house_number;*/
 
     @ColumnInfo(name = "garbageVolume")
+    @SerializedName("garbageVolume")
     private double garbageVolume;
 
     @ColumnInfo(name = "garbageWeight")
+    @SerializedName("garbageWeight")
     private double garbageWeight;
 
-    public Data(int dbId, String address, String date, int route, double garbageVolume, double garbageWeight) {
-        this.dbId = dbId;
+    public Data(int id, String address, String date, int route, double garbageVolume, double garbageWeight) {
+        this.id = id;
         this.address = address;
         this.date = date;
         this.route = route;
@@ -43,10 +52,6 @@ public class Data {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setDbId(int dbId) {
-        this.dbId = dbId;
     }
 
     public void setAddress(String address) {
@@ -71,10 +76,6 @@ public class Data {
 
     public int getId() {
         return id;
-    }
-
-    public int getDbId() {
-        return dbId;
     }
 
     public String getAddress() {
