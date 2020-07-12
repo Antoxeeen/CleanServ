@@ -14,6 +14,7 @@ import ru.antoxeeen.cleanserv.R;
 import ru.antoxeeen.cleanserv.Repository.Data;
 
 class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
+    private onItemClickListener listener;
 
     protected DataAdapter() {
         super(DIFF_CALLBACK);
@@ -47,8 +48,12 @@ class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
         holder.editTextWeight.setText(String.valueOf(currentData.getGarbageWeight()));
     }
 
-    public Data getDataAt(int position){
-        return getItem(position);
+    public interface onItemClickListener{
+        void onItemClick(Data data);
+    }
+
+    public void setItemOnClickListener(onItemClickListener listener){
+        this.listener = listener;
     }
 
     static class DataHolder extends RecyclerView.ViewHolder {
