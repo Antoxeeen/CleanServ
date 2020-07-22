@@ -14,10 +14,6 @@ public class Data {
     @SerializedName("id")
     private long id;
 
-    /*@ColumnInfo(name = "dbId")
-    @SerializedName("id")
-    private int dbId;*/
-
     @ColumnInfo(name = "address")
     @SerializedName("address")
     private String address;
