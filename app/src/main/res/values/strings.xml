@@ -4,4 +4,5 @@
     <string name="Volume">Объем</string>
     <string name="weight">Вес</string>
     <string name="save">Сохранить</string>
+    <string name="basket_count">Количество контейнеров</string>
 </resources>

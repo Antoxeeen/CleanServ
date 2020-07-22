@@ -12,7 +12,7 @@ public class Data {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    private int id;
+    private long id;
 
     /*@ColumnInfo(name = "dbId")
     @SerializedName("id")
@@ -30,8 +30,13 @@ public class Data {
     @SerializedName("route")
     private int route;
 
-    /*@ColumnInfo(name = "house_number")
-    private String house_number;*/
+    @ColumnInfo(name = "basketCount")
+    @SerializedName("basketCount")
+    private int basketCount;
+
+    @ColumnInfo(name = "basketVolume")
+    @SerializedName("basketVolume")
+    private double basketVolume;
 
     @ColumnInfo(name = "garbageVolume")
     @SerializedName("garbageVolume")
@@ -41,16 +46,19 @@ public class Data {
     @SerializedName("garbageWeight")
     private double garbageWeight;
 
-    public Data(int id, String address, String date, int route, double garbageVolume, double garbageWeight) {
+    public Data(long id, String address, String date, int route, int basketCount,
+                double basketVolume, double garbageVolume, double garbageWeight) {
         this.id = id;
         this.address = address;
         this.date = date;
         this.route = route;
+        this.basketCount = basketCount;
+        this.basketVolume = basketVolume;
         this.garbageVolume = garbageVolume;
         this.garbageWeight = garbageWeight;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,6 +74,14 @@ public class Data {
         this.route = route;
     }
 
+    public void setBasketCount(int basketCount) {
+        this.basketCount = basketCount;
+    }
+
+    public void setBasketVolume(double basketVolume) {
+        this.basketVolume = basketVolume;
+    }
+
     public void setGarbageVolume(double garbageVolume) {
         this.garbageVolume = garbageVolume;
     }
@@ -74,7 +90,7 @@ public class Data {
         this.garbageWeight = garbageWeight;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -88,6 +104,14 @@ public class Data {
 
     public int getRoute() {
         return route;
+    }
+
+    public int getBasketCount() {
+        return basketCount;
+    }
+
+    public double getBasketVolume() {
+        return basketVolume;
     }
 
     public double getGarbageVolume() {

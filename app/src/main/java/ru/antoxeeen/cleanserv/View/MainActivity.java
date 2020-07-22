@@ -6,6 +6,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ru.antoxeeen.cleanserv.Net.NetworkService;
 import ru.antoxeeen.cleanserv.R;
 import ru.antoxeeen.cleanserv.Repository.Data;
 import ru.antoxeeen.cleanserv.ViewModel.DataViewModel;
@@ -21,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private DataViewModel viewModel;
     private DataAdapter adapter;
     private RecyclerView recyclerView;
-    private int currentId;
+    private long currentId;
     private String currentAddress;
     private String currentDate;
     private int currentRoute;
+    private int currentBasketCount;
+    private double currentBasketVolume;
     private double currentVolume;
     private double currentWeight;
     public static final int EDIT_DATA_REQUEST = 1;
@@ -35,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initVariable();
-        viewModel.getAllData().observe(this, new Observer<List<Data>>() {
-            @Override
-            public void onChanged(List<Data> data) {
-                adapter.submitList(data);
-            }
-        });
 
         adapter.setItemOnClickListener(new DataAdapter.onItemClickListener() {
             @Override
@@ -51,11 +51,39 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(EditDataActivity.EXTRA_ADDRESS, data.getAddress());
                 intent.putExtra(EditDataActivity.EXTRA_DATE, data.getDate());
                 intent.putExtra(EditDataActivity.EXTRA_ROUTE, data.getRoute());
+                intent.putExtra(EditDataActivity.EXTRA_BASKET_COUNT, data.getBasketCount());
+                intent.putExtra(EditDataActivity.EXTRA_BASKET_VOLUME, data.getBasketVolume());
                 intent.putExtra(EditDataActivity.EXTRA_VOLUME, data.getGarbageVolume());
                 intent.putExtra(EditDataActivity.EXTRA_WEIGHT, data.getGarbageWeight());
                 startActivityForResult(intent, EDIT_DATA_REQUEST);
             }
         });
+
+        viewModel.getAllData().observe(this, new Observer<List<Data>>() {
+            @Override
+            public void onChanged(List<Data> data) {
+                adapter.submitList(data);
+            }
+        });
+
+        NetworkService.getInstance()
+                .getJsonHolder()
+                .getAllData()
+                .enqueue(new Callback<List<Data>>() {
+                    @Override
+                    public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
+                        List<Data> data = response.body();
+                        assert data != null;
+                        for (Data currentData : data) {
+                            viewModel.insertData(currentData);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Data>> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 
     private void initVariable() {
@@ -67,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
                 .create(DataViewModel.class);
+        //viewModel.deleteAllData();
     }
 
     @Override
@@ -74,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == EDIT_DATA_REQUEST && resultCode == RESULT_OK) {
-            currentId = data.getIntExtra(EditDataActivity.EXTRA_ID, -1);
+            currentId = data.getLongExtra(EditDataActivity.EXTRA_ID, -1);
             if (currentId == -1) {
                 Toast.makeText(this, "Не может быть обновлено", Toast.LENGTH_SHORT).show();
                 return;
@@ -82,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
             currentAddress = data.getStringExtra(EditDataActivity.EXTRA_ADDRESS);
             currentDate = data.getStringExtra(EditDataActivity.EXTRA_DATE);
             currentRoute = data.getIntExtra(EditDataActivity.EXTRA_ROUTE, -1);
+            currentBasketCount = data.getIntExtra(EditDataActivity.EXTRA_BASKET_COUNT, -1);
+            currentBasketVolume = data.getDoubleExtra(EditDataActivity.EXTRA_BASKET_VOLUME, -1.0);
             currentVolume = data.getDoubleExtra(EditDataActivity.EXTRA_VOLUME, 0.0);
             currentWeight = data.getDoubleExtra(EditDataActivity.EXTRA_WEIGHT, 0.0);
             Data currentData = new Data(currentId, currentAddress, currentDate, currentRoute,
-                    currentVolume, currentWeight);
+                    currentBasketCount, currentBasketVolume, currentVolume, currentWeight);
             viewModel.updateData(currentData);
         } else {
             Toast.makeText(this, "Нет изменений для сохранения", Toast.LENGTH_SHORT)

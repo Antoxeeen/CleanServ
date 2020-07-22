@@ -44,6 +44,7 @@ class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
     public void onBindViewHolder(@NonNull DataHolder holder, int position) {
         Data currentData = getItem(position);
         holder.textViewAddress.setText(currentData.getAddress());
+        holder.editTextGarbageBasketCount.setText(String.valueOf(currentData.getBasketCount()));
         holder.editTextVolume.setText(String.valueOf(currentData.getGarbageVolume()));
         holder.editTextWeight.setText(String.valueOf(currentData.getGarbageWeight()));
     }
@@ -56,17 +57,29 @@ class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
         this.listener = listener;
     }
 
-    static class DataHolder extends RecyclerView.ViewHolder {
+    class DataHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewAddress;
+        private EditText editTextGarbageBasketCount;
         private EditText editTextVolume;
         private EditText editTextWeight;
 
         public DataHolder(@NonNull View itemView) {
             super(itemView);
             textViewAddress = itemView.findViewById(R.id.text_view_address);
+            editTextGarbageBasketCount = itemView.findViewById(R.id.edit_text_garbageBasketCount);
             editTextVolume = itemView.findViewById(R.id.edit_text_volume);
             editTextWeight = itemView.findViewById(R.id.edit_text_weight);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
         }
     }
 }
