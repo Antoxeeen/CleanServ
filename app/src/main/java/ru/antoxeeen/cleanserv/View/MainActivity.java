@@ -2,6 +2,7 @@ package ru.antoxeeen.cleanserv.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LiveData<List<Data>> currentDataList;
     private DataViewModel viewModel;
     private DataAdapter adapter;
     private RecyclerView recyclerView;
@@ -58,32 +60,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, EDIT_DATA_REQUEST);
             }
         });
-
-        viewModel.getAllData().observe(this, new Observer<List<Data>>() {
+        viewModel.getAllDataServerDB();
+        currentDataList.observe(this, new Observer<List<Data>>() {
             @Override
             public void onChanged(List<Data> data) {
                 adapter.submitList(data);
             }
         });
 
-        NetworkService.getInstance()
-                .getJsonHolder()
-                .getAllData()
-                .enqueue(new Callback<List<Data>>() {
-                    @Override
-                    public void onResponse(Call<List<Data>> call, Response<List<Data>> response) {
-                        List<Data> data = response.body();
-                        assert data != null;
-                        for (Data currentData : data) {
-                            viewModel.insertData(currentData);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Data>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
     }
 
     private void initVariable() {
@@ -95,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication())
                 .create(DataViewModel.class);
-        //viewModel.deleteAllData();
+        viewModel.deleteAllData();
+        currentDataList = viewModel.getAllDataFromLocalDB();
     }
 
     @Override

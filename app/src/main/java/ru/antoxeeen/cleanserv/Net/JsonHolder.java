@@ -11,6 +11,6 @@ public interface JsonHolder {
     @GET("persons")
     public Call<List<Data>> getAllData();
 
-    @GET("/data")
+    @GET("data")
     public Call<List<Data>> getAllDataAtDate(@Query("date") String date);
 }

@@ -20,24 +20,32 @@ public class DataViewModel extends AndroidViewModel {
         dataRepository = new DataRepository(application);
     }
 
-    public LiveData<List<Data>> getAllData(){
-        return dataRepository.getAllData();
+    public void getAllDataServerDB(){
+        dataRepository.getAllDataServerDB();
+    }
+
+    public void getDataServerDBAtDate(String date){
+        dataRepository.getAllDataServerDBAtDate(date);
+    }
+
+    public LiveData<List<Data>> getAllDataFromLocalDB(){
+        return dataRepository.getAllDataLocalDB();
     }
 
     public void insertData(Data data){
-        dataRepository.insertData(data);
+        dataRepository.insertDataLocalDB(data);
     }
 
     public void updateData(Data data){
-        dataRepository.updateData(data);
+        dataRepository.updateDataLocalDB(data);
     }
 
     public void deleteData(Data data){
-        dataRepository.deleteData(data);
+        dataRepository.deleteDataLocalDB(data);
     }
 
     public void deleteAllData(){
-        dataRepository.deleteAllData();
+        dataRepository.deleteAllDataLocalDB();
     }
 
 }
