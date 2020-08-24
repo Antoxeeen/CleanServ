@@ -24,28 +24,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation appcompat.appcompat
+    implementation constraintlayout.constraintlayout
+    implementation cardview.cardview
+    implementation material.material
+    implementation coordinatorlayout.coordinatorlayout
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     //RecyclerView
     implementation recyclerview.recyclerview
     implementation recyclerview.selection
-
     //lifeCycle/ViewModel/LiveData
     implementation lifecycle.viewmodel
     implementation lifecycle.livedata
     annotationProcessor lifecycle.compiler
-
     //RoomDB
     implementation room.runtime
     annotationProcessor room.compiler
-
     //Retrofit 2
     implementation retrofit2.retrofit
     implementation retrofit2.convertergson
