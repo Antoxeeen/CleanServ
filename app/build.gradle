@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -6,12 +8,21 @@ android {
 
     defaultConfig {
         applicationId "ru.antoxeeen.cleanserv"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    //compile options required
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions{
+        jvmTarget = "1.8"
     }
 
     buildTypes {
@@ -24,25 +35,42 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "androidx.core:core-ktx:1.3.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation appcompat.appcompat
     implementation constraintlayout.constraintlayout
     implementation cardview.cardview
     implementation material.material
     implementation coordinatorlayout.coordinatorlayout
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //coroutines android
+    implementation coroutines.android
+    implementation coroutines.core
     //RecyclerView
     implementation recyclerview.recyclerview
     implementation recyclerview.selection
     //lifeCycle/ViewModel/LiveData
     implementation lifecycle.viewmodel
     implementation lifecycle.livedata
-    annotationProcessor lifecycle.compiler
-    //RoomDB
-    implementation room.runtime
-    annotationProcessor room.compiler
+    kapt lifecycle.compiler
+    //RoomDB for kotlin
+    implementation room.runtimeKT
+    kapt room.compilerKT
+    implementation room.ktx
     //Retrofit 2
     implementation retrofit2.retrofit
     implementation retrofit2.convertergson
+    implementation retrofit2.adapter
+    //RxKotlin
+    implementation rx.rxkotlin
+    //WorkManager
+    implementation workmanager.workKtx
+    implementation workmanager.workRxJava
+    implementation workmanager.workGcm
+    androidTestImplementation workmanager.workTesting
+}
+repositories {
+    mavenCentral()
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Чистый сервис</string>
+    <string name="test_address">г. Калачинск, ул. Калачинская широта: 55.0529870 (ПКиО им. Гагарина)</string>
+    <string name="Volume">Объем</string>
+    <string name="weight">Weight</string>
+    <string name="save">Save</string>
+    <string name="basket_count">Number of baskets</string>
+    <string name="log_in">Войти</string>
+    <string name="login">Имя пользователя</string>
+    <string name="password">Пароль</string>
+</resources>

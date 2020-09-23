@@ -1,4 +1,4 @@
-package ru.antoxeeen.cleanserv.View;
+package ru.antoxeeen.cleanserv.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,13 +7,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import ru.antoxeeen.cleanserv.Net.NetworkService;
 import ru.antoxeeen.cleanserv.R;
-import ru.antoxeeen.cleanserv.Repository.Data;
-import ru.antoxeeen.cleanserv.ViewModel.DataViewModel;
+import ru.antoxeeen.cleanserv.repository.DataKT;
+import ru.antoxeeen.cleanserv.viewModel.DataViewModel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LiveData<List<Data>> currentDataList;
+    private LiveData<List<DataKT>> currentDataList;
     private DataViewModel viewModel;
     private DataAdapter adapter;
     private RecyclerView recyclerView;
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setItemOnClickListener(new DataAdapter.onItemClickListener() {
             @Override
-            public void onItemClick(Data data) {
+            public void onItemClick(DataKT data) {
                 Intent intent = new Intent(MainActivity.this, EditDataActivity.class);
                 currentId = data.getId();
                 intent.putExtra(EditDataActivity.EXTRA_ID, currentId);
@@ -61,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewModel.getAllDataServerDB();
-        currentDataList.observe(this, new Observer<List<Data>>() {
+        currentDataList.observe(this, new Observer<List<DataKT>>() {
             @Override
-            public void onChanged(List<Data> data) {
+            public void onChanged(List<DataKT> data) {
                 adapter.submitList(data);
             }
         });
@@ -100,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             currentBasketVolume = data.getDoubleExtra(EditDataActivity.EXTRA_BASKET_VOLUME, -1.0);
             currentVolume = data.getDoubleExtra(EditDataActivity.EXTRA_VOLUME, 0.0);
             currentWeight = data.getDoubleExtra(EditDataActivity.EXTRA_WEIGHT, 0.0);
-            Data currentData = new Data(currentId, currentAddress, currentDate, currentRoute,
-                    currentBasketCount, currentBasketVolume, currentVolume, currentWeight);
+            DataKT currentData = new DataKT(currentAddress, currentDate, currentRoute,
+                    currentBasketCount, currentBasketVolume, currentVolume, currentWeight,currentId);
             viewModel.updateData(currentData);
         } else {
             Toast.makeText(this, "Нет изменений для сохранения", Toast.LENGTH_SHORT)

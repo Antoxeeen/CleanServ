@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Чистый сервис</string>
-    <string name="test_address">г.Калачинск, ул. Калачинская широта: 55.0529870 (ПКиО им. Гагарина)</string>
-    <string name="Volume">Объем</string>
-    <string name="weight">Вес</string>
-    <string name="save">Сохранить</string>
-    <string name="basket_count">Количество контейнеров</string>
+    <string name="app_name">Clean Service</string>
+    <string name="test_address">c.Kalachinsk, st. Kalachinskaya shirota: 55.0529870 (PKiO name of Gagarina)</string>
+    <string name="Volume">Volume</string>
+    <string name="weight">Weight</string>
+    <string name="save">Save</string>
+    <string name="basket_count">Number of baskets</string>
+    <string name="log_in">Log in</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

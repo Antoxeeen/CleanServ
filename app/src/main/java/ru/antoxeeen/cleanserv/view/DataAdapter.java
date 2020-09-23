@@ -1,33 +1,32 @@
-package ru.antoxeeen.cleanserv.View;
+package ru.antoxeeen.cleanserv.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.antoxeeen.cleanserv.R;
-import ru.antoxeeen.cleanserv.Repository.Data;
+import ru.antoxeeen.cleanserv.repository.DataKT;
 
-class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
+class DataAdapter extends ListAdapter<DataKT, DataAdapter.DataHolder> {
     private onItemClickListener listener;
 
     protected DataAdapter() {
         super(DIFF_CALLBACK);
     }
 
-    public static final DiffUtil.ItemCallback<Data> DIFF_CALLBACK = new DiffUtil.ItemCallback<Data>() {
+    public static final DiffUtil.ItemCallback<DataKT> DIFF_CALLBACK = new DiffUtil.ItemCallback<DataKT>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Data oldItem, @NonNull Data newItem) {
+        public boolean areItemsTheSame(@NonNull DataKT oldItem, @NonNull DataKT newItem) {
             return oldItem == newItem;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Data oldItem, @NonNull Data newItem) {
+        public boolean areContentsTheSame(@NonNull DataKT oldItem, @NonNull DataKT newItem) {
             return oldItem.getAddress().equals(newItem.getAddress());
         }
     };
@@ -42,7 +41,7 @@ class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DataHolder holder, int position) {
-        Data currentData = getItem(position);
+        DataKT currentData = getItem(position);
         holder.textViewAddress.setText(currentData.getAddress());
         holder.editTextGarbageBasketCount.setText(String.valueOf(currentData.getBasketCount()));
         holder.editTextVolume.setText(String.valueOf(currentData.getGarbageVolume()));
@@ -50,7 +49,7 @@ class DataAdapter extends ListAdapter<Data, DataAdapter.DataHolder> {
     }
 
     public interface onItemClickListener{
-        void onItemClick(Data data);
+        void onItemClick(DataKT dataKT);
     }
 
     public void setItemOnClickListener(onItemClickListener listener){
